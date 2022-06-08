@@ -1,42 +1,48 @@
-const playerImg = document.querySelectorAll(".card img");
-const comImg = document.querySelector(".bot-card img");
-const hasilGame = document.getElementById("hasil");
-const scoreGame = document.getElementById("score");
+// let random = Math.round(Math.random() * 2 + 1);
+// console.log(random);
 
-let playerScore = 0;
-let comScore = 0;
+const imgSelect = document.getElementById("img-select");
+const imgCom = document.getElementById("img-com");
+const buttonSelect = document.getElementById("button-select");
+const buttonRetry = document.getElementById("button-retry");
+const getPlayer = document.getElementById("player");
+const getCom = document.getElementById("com");
+const hasilGame = document.getElementById("hasil-game");
+const scoreGame = document.getElementById("score-game");
+const gambar = ["semut", "orang", "gajah"];
 
-playerImg.forEach(function (pilPlayer) {
-  pilPlayer.addEventListener("click", function () {
-    var pilihanPlayer = this.className;
-    let player1 = pilihanPlayer;
-    let com = getComTurn();
-    putar(com);
-    setTimeout(() => {
-      let hasil = kondisi(player1, com);
+let i = 1;
+function pilPlayer() {
+  if (i == 3) i = 0;
+  let pilihanPlayer = gambar[i];
+  imgSelect.setAttribute("src", "img/" + gambar[i++] + ".png");
+  return pilihanPlayer;
+}
 
-      // tampilkan
-      //  console.log (`player = ${player1}`);
-      //  console.log(`com = ${com}`);
+// console.log(imgSelect.classList.contains("active"));
 
-      let score = getScore(hasil);
-      hasilGame.textContent = hasil;
-      scoreGame.textContent = score;
-      // console.log(hasil);
+imgSelect.onclick = function () {
+  imgSelect.style.backgroundColor = "transparent";
+  if (imgSelect.classList.contains("active")) {
+    var pilihanPlayer = pilPlayer();
+    buttonSelect.onclick = () => {
+      buttonSelect.style.display = "none";
+      let pilCom = getComTurn();
+      putar(pilCom);
+      getCom.textContent = "Random..";
+      setTimeout(() => {
+        getCom.textContent = pilCom;
+      }, 1500);
+      return proses(pilihanPlayer, pilCom);
+    };
+    getPlayer.textContent = pilihanPlayer;
+  }
+};
 
-      let ha = penentuan();
-
-      if (ha == "udahan") {
-        hasilGame.textContent = "hasil";
-      }
-    }, 1000);
-  });
-});
-
-function putar(com) {
-  const imgComputer = document.querySelector(".bot-card img");
-  const gambar = ["gajah", "orang", "semut"];
-  let i = 0;
+function putar(pilCom) {
+  const imgComputer = imgCom;
+  // const gambar = ["gajah", "orang", "semut"];
+  let j = 0;
   const waktuMulai = new Date().getTime();
 
   setInterval(function () {
@@ -44,12 +50,85 @@ function putar(com) {
       clearInterval;
       return;
     }
-    imgComputer.setAttribute("src", "img/" + gambar[i++] + ".png");
-    if (i == gambar.length) i = 0;
+    imgComputer.setAttribute("src", "img/" + gambar[j++] + ".png");
+    if (j == gambar.length) j = 0;
   }, 100);
   setTimeout(() => {
-    imgComputer.setAttribute("src", "img/" + com + ".png");
-  }, 1100);
+    imgComputer.setAttribute("src", "img/" + pilCom + ".png");
+  }, 1300);
+}
+
+function getComTurn() {
+  let com = Math.round(Math.random() * 2 + 1);
+
+  if (com == 3) {
+    return "gajah";
+  } else if (com == 2) {
+    return "orang";
+  } else {
+    return "semut";
+  }
+}
+buttonRetry.onclick = () => {
+  buttonRetry.style.display = "none";
+  buttonSelect.style.display = "block";
+  imgSelect.classList.add("active");
+  hasilGame.textContent = "hasil";
+  return;
+};
+
+let playerScore = 0;
+let comScore = 0;
+
+function proses(pilihanPlayer, pilihanCom) {
+  imgSelect.classList.remove("active");
+  buttonRetry.style.display = "block";
+  let hasil = kondisi(pilihanPlayer, pilihanCom);
+  let score = getScore(hasil);
+  setTimeout(() => {
+    hasilGame.textContent = hasil;
+    scoreGame.textContent = score;
+    penentuan();
+  }, 1500);
+  //   console.log(hasilAkhir);
+
+  console.log(score);
+}
+
+function kondisi(player1, com) {
+  let gajah = "gajah";
+  let orang = "orang";
+  let semut = "semut";
+
+  if (player1 == com) {
+    return "seri";
+  } else if (player1 == gajah) {
+    return com == orang ? "menang" : "kalah";
+  } else if (player1 == orang) {
+    return com == semut ? "menang" : "kalah";
+  } else if (player1 == semut) {
+    return com == gajah ? "menang" : "kalah";
+  } else {
+    return "salah input!";
+  }
+}
+
+function getScore(hasil) {
+  let menang = "menang";
+  let kalah = "kalah";
+  let seri = "seri";
+
+  if (hasil == menang) {
+    playerScore += 1;
+    return `player = ${playerScore}, com = ${comScore}`;
+  } else if (hasil == kalah) {
+    comScore += 1;
+    return `player = ${playerScore}, com = ${comScore}`;
+  } else if (hasil == seri) {
+    return `player = ${playerScore}, com = ${comScore}`;
+  } else {
+    return `player = ${playerScore}, com = ${comScore}`;
+  }
 }
 
 function penentuan() {
@@ -103,53 +182,5 @@ function penentuan() {
     return "udahan";
   } else {
     return;
-  }
-}
-
-function getScore(hasil) {
-  let menang = "menang";
-  let kalah = "kalah";
-  let seri = "seri";
-
-  if (hasil == menang) {
-    playerScore += 1;
-    return `player = ${playerScore}, com = ${comScore}`;
-  } else if (hasil == kalah) {
-    comScore += 1;
-    return `player = ${playerScore}, com = ${comScore}`;
-  } else if (hasil == seri) {
-    return `player = ${playerScore}, com = ${comScore}`;
-  } else {
-    return `player = ${playerScore}, com = ${comScore}`;
-  }
-}
-
-function kondisi(player1, com) {
-  let gajah = "gajah";
-  let orang = "orang";
-  let semut = "semut";
-
-  if (player1 == com) {
-    return "seri";
-  } else if (player1 == gajah) {
-    return com == orang ? "menang" : "kalah";
-  } else if (player1 == orang) {
-    return com == semut ? "menang" : "kalah";
-  } else if (player1 == semut) {
-    return com == gajah ? "menang" : "kalah";
-  } else {
-    return "salah input!";
-  }
-}
-
-function getComTurn() {
-  let com = Math.round(Math.random() * 2 + 1);
-
-  if (com == 3) {
-    return "gajah";
-  } else if (com == 2) {
-    return "orang";
-  } else {
-    return "semut";
   }
 }
