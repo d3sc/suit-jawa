@@ -6,13 +6,11 @@
   scroll-behavior: smooth;
 }
 
-body {
-  overflow-y: hidden;
-}
 .container {
   background-color: #18191a;
   /* background-color: #ccc; */
   display: grid;
+  justify-content: space-evenly;
   /* place-items: center; */
   width: 100%;
   height: 100vh;
@@ -37,9 +35,7 @@ body {
 }
 
 .game-score {
-  position: relative;
-  top: 110px;
-  margin: 10px auto;
+  margin: 50px auto 10px;
 }
 
 .chara #player,
@@ -164,13 +160,14 @@ footer .footer-bottom i {
 @media (max-width: 600px) {
   .card {
     display: grid;
+    justify-content: space-evenly;
   }
   .card img {
     margin-left: 0;
   }
   .card #img-select {
     margin-right: 0;
-    transform: rotateX(180deg);
+    /* transform: rotateX(180deg); */
   }
   .chara #player {
     margin-right: 0;
