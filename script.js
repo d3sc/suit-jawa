@@ -26,6 +26,7 @@ imgSelect.onclick = function () {
   if (imgSelect.classList.contains("active")) {
     var pilihanPlayer = pilPlayer();
     buttonSelect.onclick = () => {
+      setTimeout(() => {}, 1000);
       buttonSelect.style.display = "none";
       let pilCom = getComTurn();
       putar(pilCom);
@@ -70,10 +71,12 @@ function getComTurn() {
   }
 }
 buttonRetry.onclick = () => {
-  buttonRetry.style.display = "none";
-  buttonSelect.style.display = "block";
-  imgSelect.classList.add("active");
-  hasilGame.textContent = "hasil";
+  setTimeout(() => {
+    buttonRetry.style.display = "none";
+    buttonSelect.style.display = "block";
+    imgSelect.classList.add("active");
+    hasilGame.textContent = "hasil";
+  }, 1000);
   return;
 };
 

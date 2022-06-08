@@ -47,4 +47,18 @@
       </footer>
   </body>
   <script src="script.js"></script>
+  <script>
+    document.getElementById('button-select').addEventListener('click', function () {
+      this.style.transform = 'translateY(-5px)'
+      setTimeout(() => {
+        this.style.transform = 'translateY(5px)'
+      }, 500)
+    })
+    document.getElementById('button-retry').addEventListener('click', function () {
+      this.style.transform = 'translateY(-5px)'
+      setTimeout(() => {
+        this.style.transform = 'translateY(5px)'
+      }, 500)
+    })
+  </script>
 </html>
