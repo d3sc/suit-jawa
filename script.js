@@ -1,6 +1,3 @@
-// let random = Math.round(Math.random() * 2 + 1);
-// console.log(random);
-
 const imgSelect = document.getElementById("img-select");
 const imgCom = document.getElementById("img-com");
 const buttonSelect = document.getElementById("button-select");
@@ -19,23 +16,26 @@ function pilPlayer() {
   return pilihanPlayer;
 }
 
-// console.log(imgSelect.classList.contains("active"));
-
 imgSelect.onclick = function () {
   imgSelect.style.backgroundColor = "transparent";
   if (imgSelect.classList.contains("active")) {
     var pilihanPlayer = pilPlayer();
-    buttonSelect.onclick = () => {
-      setTimeout(() => {}, 1000);
-      buttonSelect.style.display = "none";
-      let pilCom = getComTurn();
-      putar(pilCom);
-      getCom.textContent = "Random..";
-      setTimeout(() => {
-        getCom.textContent = pilCom;
-      }, 1500);
-      return proses(pilihanPlayer, pilCom);
-    };
+    setTimeout(() => {
+      buttonSelect.onclick = () => {
+        let pilCom = getComTurn();
+        hasilGame.textContent = "hasil";
+        putar(pilCom);
+        buttonSelect.style.display = "none";
+        getCom.textContent = "Random.";
+        setTimeout(() => {
+          getCom.textContent = "Random..";
+        }, 700);
+        setTimeout(() => {
+          getCom.textContent = pilCom;
+        }, 1500);
+        return proses(pilihanPlayer, pilCom);
+      };
+    }, 1000);
     getPlayer.textContent = pilihanPlayer;
   }
 };
@@ -76,8 +76,8 @@ buttonRetry.onclick = () => {
     buttonSelect.style.display = "block";
     imgSelect.classList.add("active");
     hasilGame.textContent = "hasil";
+    return;
   }, 1000);
-  return;
 };
 
 let playerScore = 0;
@@ -135,7 +135,7 @@ function getScore(hasil) {
 }
 
 function penentuan() {
-  if (playerScore == 3 && comScore == 0) {
+  if (playerScore >= 3 && comScore == 0) {
     playerScore = 0;
     comScore = 0;
     hasilGame.textContent = "Player menang brutal!";
@@ -143,7 +143,7 @@ function penentuan() {
     scoreGame.textContent = `player = ${playerScore}, com = ${comScore}`;
     // console.log("membersihkan permainan..");
     return "udahan";
-  } else if (playerScore == 3 && comScore == 1) {
+  } else if (playerScore >= 3 && comScore == 1) {
     playerScore = 0;
     comScore = 0;
     hasilGame.textContent = "Player menang Jago!";
@@ -151,7 +151,7 @@ function penentuan() {
     scoreGame.textContent = `player = ${playerScore}, com = ${comScore}`;
     // console.log("membersihkan permainan..");
     return "udahan";
-  } else if (playerScore == 3 && comScore == 2) {
+  } else if (playerScore >= 3 && comScore == 2) {
     playerScore = 0;
     comScore = 0;
     hasilGame.textContent = "Player menang hoki!";
@@ -159,7 +159,7 @@ function penentuan() {
     scoreGame.textContent = `player = ${playerScore}, com = ${comScore}`;
     // console.log("membersihkan permainan..");
     return "udahan";
-  } else if (comScore == 3 && playerScore == 0) {
+  } else if (comScore >= 3 && playerScore == 0) {
     playerScore = 0;
     comScore = 0;
     hasilGame.textContent = "Com menang Brutal!";
@@ -167,7 +167,7 @@ function penentuan() {
     scoreGame.textContent = `player = ${playerScore}, com = ${comScore}`;
     // console.log("membersihkan permainan..");
     return "udahan";
-  } else if (comScore == 3 && playerScore == 1) {
+  } else if (comScore >= 3 && playerScore == 1) {
     playerScore = 0;
     comScore = 0;
     hasilGame.textContent = "Com menang jago!";
@@ -175,7 +175,7 @@ function penentuan() {
     scoreGame.textContent = `player = ${playerScore}, com = ${comScore}`;
     // console.log("membersihkan permainan..");
     return "udahan";
-  } else if (comScore == 3 && playerScore == 2) {
+  } else if (comScore >= 3 && playerScore == 2) {
     playerScore = 0;
     comScore = 0;
     hasilGame.textContent = "Com menang hoki!";
@@ -186,4 +186,8 @@ function penentuan() {
   } else {
     return;
   }
+}
+
+function cheat() {
+  return console.log(pilCom);
 }
