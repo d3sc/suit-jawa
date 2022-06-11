@@ -8,9 +8,10 @@ const hasilGame = document.getElementById("hasil-game");
 const scoreGame = document.getElementById("score-game");
 const gambar = ["semut", "orang", "gajah"];
 
-let i = 1;
+let i = 0;
 function pilPlayer() {
   if (i == 3) i = 0;
+
   let pilihanPlayer = gambar[i];
   imgSelect.setAttribute("src", "img/" + gambar[i++] + ".png");
   return pilihanPlayer;
@@ -19,30 +20,28 @@ function pilPlayer() {
 imgSelect.onclick = function () {
   imgSelect.style.backgroundColor = "transparent";
   if (imgSelect.classList.contains("active")) {
-    var pilihanPlayer = pilPlayer();
-    setTimeout(() => {
-      buttonSelect.onclick = () => {
-        let pilCom = getComTurn();
-        hasilGame.textContent = "hasil";
-        putar(pilCom);
-        buttonSelect.style.display = "none";
-        getCom.textContent = "Random.";
-        setTimeout(() => {
-          getCom.textContent = "Random..";
-        }, 700);
-        setTimeout(() => {
-          getCom.textContent = pilCom;
-        }, 1500);
-        return proses(pilihanPlayer, pilCom);
-      };
-    }, 1000);
+    let pilihanPlayer = pilPlayer();
+    buttonSelect.onclick = () => {
+      let pilCom = getComTurn();
+      hasilGame.textContent = "hasil";
+      putar(pilCom);
+      buttonSelect.style.display = "none";
+      getCom.textContent = "Random.";
+      setTimeout(() => {
+        getCom.textContent = "Random..";
+      }, 700);
+      setTimeout(() => {
+        getCom.textContent = pilCom;
+      }, 1500);
+      // getPlayer.textContent = pilihanPlayer;
+      return proses(pilihanPlayer, pilCom);
+    };
     getPlayer.textContent = pilihanPlayer;
   }
 };
 
 function putar(pilCom) {
   const imgComputer = imgCom;
-  // const gambar = ["gajah", "orang", "semut"];
   let j = 0;
   const waktuMulai = new Date().getTime();
 
@@ -94,8 +93,6 @@ function proses(pilihanPlayer, pilihanCom) {
     penentuan();
   }, 1500);
   //   console.log(hasilAkhir);
-
-  console.log(score);
 }
 
 function kondisi(player1, com) {
@@ -105,14 +102,15 @@ function kondisi(player1, com) {
 
   if (player1 == com) {
     return "seri";
-  } else if (player1 == gajah) {
+  }
+  if (player1 == gajah) {
     return com == orang ? "menang" : "kalah";
-  } else if (player1 == orang) {
+  }
+  if (player1 == orang) {
     return com == semut ? "menang" : "kalah";
-  } else if (player1 == semut) {
+  }
+  if (player1 == semut) {
     return com == gajah ? "menang" : "kalah";
-  } else {
-    return "salah input!";
   }
 }
 
@@ -186,8 +184,4 @@ function penentuan() {
   } else {
     return;
   }
-}
-
-function cheat() {
-  return console.log(pilCom);
 }

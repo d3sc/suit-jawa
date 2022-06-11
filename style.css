@@ -199,6 +199,10 @@ footer .footer-bottom i {
 }
 
 @media (max-width: 600px) {
+  .container {
+    height: 1000px;
+    max-height: 1200px;
+  }
   .card {
     display: grid;
     justify-content: space-evenly;
