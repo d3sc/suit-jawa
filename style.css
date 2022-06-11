@@ -17,29 +17,54 @@
   padding-bottom: 40px;
 }
 
+nav {
+  padding: 10px 5px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #18191a;
+}
+
+.nav-links {
+  display: flex;
+  /* gap: 10px; */
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+}
+
+.nav-links li a {
+  padding: 0 20px;
+  text-decoration: none;
+  color: #ddd;
+}
+
+.nav-links li a:hover {
+  opacity: 0.7;
+}
+
 .judul {
-  margin-top: 40px;
+  /* margin-top: 40px; */
   color: #ccc;
-  text-align: center;
+  /* text-align: center; */
   font-weight: 500;
 }
 
 .github {
-  position: absolute;
+  /* position: absolute;
   top: 10px;
-  right: 10px;
+  right: 10px; */
 }
 .help {
-  position: absolute;
+  /* position: absolute;
   top: 10px;
-  left: 10px;
+  left: 10px; */
 }
 
 .about {
-  display: inline-block;
+  /* display: inline-block;
   position: absolute;
   top: 10px;
-  left: 60px;
+  left: 60px; */
 }
 
 .game-place {
