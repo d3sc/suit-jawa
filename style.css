@@ -208,6 +208,13 @@ footer .footer-bottom i {
     height: 1000px;
     max-height: 1200px;
   }
+  .nav-links {
+    display: grid;
+    gap: 20px;
+  }
+  .judul {
+    width: 120px;
+  }
   .card {
     display: grid;
     justify-content: space-evenly;
