@@ -22,10 +22,10 @@ imgSelect.onclick = function () {
   if (imgSelect.classList.contains("active")) {
     let pilihanPlayer = pilPlayer();
     buttonSelect.onclick = () => {
+      buttonSelect.style.display = "none";
       let pilCom = getComTurn();
       hasilGame.textContent = "hasil";
       putar(pilCom);
-      buttonSelect.style.display = "none";
       getCom.textContent = "Random.";
       setTimeout(() => {
         getCom.textContent = "Random..";
@@ -70,8 +70,8 @@ function getComTurn() {
   }
 }
 buttonRetry.onclick = () => {
+  buttonRetry.style.display = "none";
   setTimeout(() => {
-    buttonRetry.style.display = "none";
     buttonSelect.style.display = "block";
     imgSelect.classList.add("active");
     hasilGame.textContent = "hasil";
@@ -84,10 +84,10 @@ let comScore = 0;
 
 function proses(pilihanPlayer, pilihanCom) {
   imgSelect.classList.remove("active");
-  buttonRetry.style.display = "block";
   let hasil = kondisi(pilihanPlayer, pilihanCom);
   let score = getScore(hasil);
   setTimeout(() => {
+    buttonRetry.style.display = "block";
     hasilGame.textContent = hasil;
     scoreGame.textContent = score;
     penentuan();
